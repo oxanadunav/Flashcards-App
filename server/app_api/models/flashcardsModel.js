@@ -1,21 +1,21 @@
 var mongoose = require('mongoose');
 
-var flashcardSchema = new mongoose.Schema({
+var flashcardSetSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
     },
     description: {
         type: String,
-        "default": ''
+        default: ''
     },
     nrOfCards: {
         type: Number,
-        "default": 0
+        default: 0
     },
     createdOn: {
         type: Date,
-        "default": Date.now
+        default: Date.now
     },
     fromLanguage: {
         type: String,
@@ -26,16 +26,17 @@ var flashcardSchema = new mongoose.Schema({
         required: true
     },
     flashcards: [{
-        firstWord: String,
-        secondWord: String
-    }]
+        front: String,
+        back: String
+    }],
+    //user_id: String,
+    //shared_users: [userID: String]
 });
 
-mongoose.model('Flashcard', flashcardSchema, 'My_Flashcards');
-
+mongoose.model('FlashcardSet', flashcardSetSchema);
 
 /* example add collection and doc
-db.myFlashcards.save({
+db.flashcardsets.save({
     name: 'weatherEng-Ro',
     fromLanguage: 'eng',
     toLanguage: 'ro',
@@ -52,8 +53,6 @@ db.myFlashcards.save({
         firstWord: 'autumn',
         secondWord: 'toamna'
     }]
-
 })
-
 */
 

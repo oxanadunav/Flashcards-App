@@ -1,28 +1,35 @@
 var mongoose = require('mongoose');
-var fc = mongoose.model('Flashcard');
+var set = mongoose.model('FlashcardSet');
 
-/* GET list of all flashcards */
-module.exports.flashcardsReadAll = function(req, res) {
-    res.send('flashcardsReadAll');
+/* GET all sets */
+module.exports.findAll = function(req, res, next) {
+  set.find(function (err, products) {
+    if (err) return next(err);
+    res.json(products);
+  });
 }
 
-/* GET a flashcards set by the id */
-module.exports.flashcardsReadOne = function(req, res) {
-    res.send('flashcardsReadOne');
+/* POST a new flashcard set */
+/* /api/sets */
+module.exports.create = function(req, res,next) {
+  set.create(req.body, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
 }
 
-/* POST a new flashcards set */
-/* /api/flashcards */
-module.exports.flashcardsCreate = function(req, res) {
-    res.send('flashcardsCreate');
+/* GET a flashcard set by the id
+* /api/sets/:setid*/
+module.exports.findOne = function(req, res, next) {
+  res.send('findOne');
 }
 
-/* PUT /api/flashcards/:flashcardsid */
-module.exports.flashcardsUpdateOne = function(req, res) {
-    res.send('flashcardsUpdateOne');
+/* PUT /api/sets/:setid */
+module.exports.update = function(req, res, next) {
+  res.send('update');
 }
 
-/* DELETE /api/flashcards/:flashcardsid */
-module.exports.flashcardsDeleteOne = function(req, res) {
-    res.send('flashcardsDeleteOne');
+/* DELETE /api/sets/:setid */
+module.exports.delete = function(req, res, next) {
+  res.send('delete');
 }

@@ -4,7 +4,7 @@ var gracefulShutdown;
 if (process.env.NODE_ENV === 'production') {
     dbURI = process.env.MONGOLAB_URI;
 }
-var dbURI = 'mongodb://localhost/Flashcards';
+var dbURI = 'mongodb://localhost/flashcards-app';
 mongoose.connect(dbURI);
 
 // CONNECTION EVENTS
