@@ -41,18 +41,33 @@ db.flashcardsets.save({
     fromLanguage: 'eng',
     toLanguage: 'ro',
     flashcards: [{
-        firstWord: 'winter',
-        secondWord: 'iarna'
+        front: 'winter',
+        back: 'iarna'
     }, {
-        firstWord: 'spring',
-        secondWord: 'primavara'
+        front: 'spring',
+        back: 'primavara'
     }, {
-        firstWord: 'summer',
-        secondWord: 'vara'
+        front: 'summer',
+        back: 'vara'
     }, {
-        firstWord: 'autumn',
-        secondWord: 'toamna'
+        front: 'autumn',
+        back: 'toamna'
     }]
 })
 */
 
+// db.flashcardsets.save({
+//   name: 'fruitsRo-Eng',
+//   fromLanguage: 'ro',
+//   toLanguage: 'eng',
+//   flashcards: [{
+//     front: 'mar',
+//     back: 'apple'
+//   }, {
+//     front: 'para',
+//     back: 'pear'
+//   }, {
+//     front: 'cocos',
+//     back: 'coconut'
+//   }]
+// })
