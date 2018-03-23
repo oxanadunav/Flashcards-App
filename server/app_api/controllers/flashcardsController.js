@@ -3,7 +3,7 @@ var set = mongoose.model('FlashcardSet');
 
 /* GET all sets */
 module.exports.findAll = function(req, res) {
-  set.find(function (err, fcSets) {
+  set.find(req.query, function (err, fcSets) {
     if (err) {
       res.status(404).json(err);
       return;
