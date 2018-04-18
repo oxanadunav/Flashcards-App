@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FcSetListComponent } from './components/fc-set-list/fc-set-list.component';
 import { FcSetComponent } from './components/fc-set/fc-set.component';
+import { FcSharedSetListComponent } from './components/fc-shared-set-list/fc-shared-set-list.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { FcSetComponent } from './components/fc-set/fc-set.component';
     AppComponent,
     NavbarComponent,
     FcSetListComponent,
-    FcSetComponent
+    FcSetComponent,
+    FcSharedSetListComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
