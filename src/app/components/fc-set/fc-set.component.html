@@ -1,3 +1,22 @@
-<p>
-  fc-set works!
-</p>
+<div class="container">
+  <dl class="list">
+    <dt>Name</dt>
+    <dd>{{ set.name }}</dd>
+    <dt>Description</dt>
+    <dd>{{ set.description }}</dd>
+    <dt>Nr cards</dt>
+    <dd>{{ set.nrOfCards }}</dd>
+    <dt>Created</dt>
+    <dd>{{ set.createdOn }}</dd>
+    <dt>Base language</dt>
+    <dd>{{ set.fromLanguage }}</dd>
+    <dt>Foreign language</dt>
+    <dd>{{ set.toLanguage }}</dd>
+  </dl>
+
+  <div *ngFor="let fc of set.flashcards">
+    {{ fc.front }}
+    {{fc.back }}
+  </div>
+
+</div>

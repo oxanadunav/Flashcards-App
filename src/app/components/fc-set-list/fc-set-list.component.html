@@ -23,29 +23,13 @@
       </tr>
       </thead>
       <tbody>
-      <tr align="center">
-        <td>weatherEng-Ro</td>
-        <td >10</td>
-        <td>eng</td>
-        <td>ro</td>
-        <td>March 26, 2018</td>
-        <td>s e d</td>
-      </tr>
-      <tr align="center">
-        <td>weatherEng-Ro</td>
-        <td>10</td>
-        <td>eng</td>
-        <td>ro</td>
-        <td>March 26, 2018</td>
-        <td>s e d</td>
-      </tr>
-      <tr align="center">
-        <td>weatherEng-Ro</td>
-        <td>10</td>
-        <td>eng</td>
-        <td>ro</td>
-        <td>March 26, 2018</td>
-        <td>s e d</td>
+      <tr align="center" *ngFor="let set of sets">
+        <td>{{ set.name }}</td>
+        <td>{{ set.nrOfCards }}</td>
+        <td>{{ set.fromLanguage }}</td>
+        <td>{{ set.toLanguage }}</td>
+        <td>{{ set.createdOn  | date:"dd/MM/yyyy"}} </td>
+        <td>share edit delete</td>
       </tr>
       </tbody>
     </table>
