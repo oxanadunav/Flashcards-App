@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FlashcardService} from '../../services/flashcard.service';
 import {Router} from '@angular/router';
+import {FlashcardService} from '../../services/flashcard.service';
+import {GoogleTranslateService} from '../../services/google-translate.service';
 import { Set } from '../../set';
+import {SupportedLanguages} from '../../supported-languages';
 
 @Component({
   selector: 'app-new-set',
@@ -11,20 +13,26 @@ import { Set } from '../../set';
 export class NewSetComponent implements OnInit {
   set = new Set();
   setLength: number = this.set.flashcards.length;
-  langs: string[] = [
-    'English',
-    'Romanian',
-    'German',
-  ];
-
   radioSelected: string = "option1";
+  supportedLanguages = new SupportedLanguages();
+  languages = this.supportedLanguages.languages;
+  from: string;
+  to: string;
 
-  constructor(private fcService: FlashcardService, private router: Router) {
-    console.log(this.set);
+  constructor(private fcService: FlashcardService, private gtranslateService: GoogleTranslateService, private router: Router) {
   }
 
   ngOnInit() {
   }
+
+  // getLanguages() {
+  //   this.gtranslateService.getLanguages().then((res) => {
+  //     this.languages = res.data.languages;
+  //   }, (err) => {
+  //     console.log(err);
+  //   });
+  // }
+
 
   addRow() {
     this.set.flashcards.push({front:"",back:""});
@@ -56,5 +64,26 @@ export class NewSetComponent implements OnInit {
     console.log("Generate flashcards entered");
   }
 
-  get diagnostic() { return JSON.stringify(this.set); }
+  translateWord(id:number) {
+    this.gtranslateService.translateWord(this.set.flashcards[id].front, this.from, this.to).then((res) => {
+      this.set.flashcards[id].back = res["data"].translations[0].translatedText;
+    }, (err) => {
+      console.log(err);
+    });
+
+  }
+
+  getBaseLanguage() {
+    var languageObj = this.languages.find(o => o.name === this.set.fromLanguage);
+    this.from = languageObj.language;
+  }
+
+  getForeignLanguage() {
+    var languageObj = this.languages.find(o => o.name === this.set.toLanguage);
+    this.to = languageObj.language;
+  }
+
+  get diagnostic() {
+    return JSON.stringify(this.set);
+  }
 }

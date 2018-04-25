@@ -9,17 +9,17 @@
         </div>
         <div class="form-group">
           <label for="from">Base Language</label>
-          <select class="form-control" id="from"  [(ngModel)]="set.fromLanguage" name="fromLanguage" required>
+          <select class="form-control" id="from"  [(ngModel)]="set.fromLanguage" name="fromLanguage" required (ngModelChange)="getBaseLanguage()">
             <option [ngValue]="undefined" selected>Choose language</option>
-            <option *ngFor="let lang of langs" [value]="lang"> {{lang}}  </option>
+            <option *ngFor="let lang of languages" [value]="lang.name"> {{lang.name}}  </option>
           </select>
         </div>
 
         <div class="form-group">
           <label for="to">Foreign Language</label>
-          <select class="form-control" id="to"  required [(ngModel)]="set.toLanguage" name="toLanguage">
+          <select class="form-control" id="to"  required [(ngModel)]="set.toLanguage" name="toLanguage" (ngModelChange)="getForeignLanguage()">
             <option [ngValue]="undefined" selected>Choose language</option>
-            <option *ngFor="let lang of langs" [value]="lang"> {{lang}}  </option>
+            <option *ngFor="let lang of languages" [value]="lang.name"> {{lang.name}}  </option>
           </select>
         </div>
 
@@ -58,10 +58,10 @@
           <div class="col-lg-2"></div>
         </div>
 
-        <div class="row" *ngFor="let flashcard of set.flashcards">
+        <div class="row" *ngFor="let flashcard of set.flashcards let i = index" [attr.data-index]="i">
           <!-------Flashcards------>
           <div class="form-group col-lg-5">
-            <input type="text" class="form-control" placeholder="{{flashcard.front}}" [(ngModel)]="flashcard.front">
+            <input (keyup.enter)="addRow()" type="text" class="form-control" placeholder="{{flashcard.front}}" [(ngModel)]="flashcard.front" (ngModelChange)="translateWord(i)">
           </div>
           <div class="form-group col-lg-5">
             <input type="text" class="form-control" placeholder="{{flashcard.back}}" [(ngModel)]="flashcard.back">
@@ -75,14 +75,13 @@
 
       <ng-template #inputList>
         <div class="form-group">
-          <label for="exampleTextarea" id="instruction">Enter the list of words: </label>
+          <label for="exampleTextarea" id="instruction">Enter the list of words </label>
           <textarea class="form-control" id="exampleTextarea" rows="7"></textarea>
         </div>
         <div class="text-right">
           <button type="submit" class="btn btn-primary pull-right" (click)="generateFlashcards()">Generate flashcards</button>
         </div>
-        <h6>Enter the front side:</h6>
-        <hr>
+        <hr id="line">
         <div class="row">
           <h6 class="col-lg-5">Front</h6>
           <h6 class="col-lg-5">Back</h6>
@@ -110,6 +109,7 @@
 
 
     {{diagnostic}}
+
 
 
 </div>

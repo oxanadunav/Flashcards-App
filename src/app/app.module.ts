@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { AppBootstrapModule } from './modules/app-bootstrap.module';
 
 import { FlashcardService} from './services/flashcard.service';
+import {GoogleTranslateService} from './services/google-translate.service';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -52,6 +53,7 @@ const ROUTES = [
   ],
   providers: [
     FlashcardService,
+    GoogleTranslateService,
     {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
