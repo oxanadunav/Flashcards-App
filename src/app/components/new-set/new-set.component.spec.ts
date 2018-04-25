@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MemorizeComponent } from './memorize.component';
+import { NewSetComponent } from './new-set.component';
 
-describe('MemorizeComponent', () => {
-  let component: MemorizeComponent;
-  let fixture: ComponentFixture<MemorizeComponent>;
+describe('NewSetComponent', () => {
+  let component: NewSetComponent;
+  let fixture: ComponentFixture<NewSetComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MemorizeComponent ]
+      declarations: [ NewSetComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MemorizeComponent);
+    fixture = TestBed.createComponent(NewSetComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

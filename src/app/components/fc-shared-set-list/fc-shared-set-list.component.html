@@ -1,45 +1,72 @@
 <div class="container">
-  <!-- Tables
-      ================================================== -->
-  <div class="table-responsive col-lg-10">
-    <table class="table table-bordered table-hover ">
-      <thead>
-      <tr align="center">
-        <th style="width: 20%">Set Name</th>
-        <th style="width: 10%">Cards</th>
-        <th style="width: 20%">Base Language</th>
-        <th style="width: 20%">Foreign Language</th>
-        <th style="width: 20%">Shared by</th>
-        <th style="width: 10%">Options</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr align="center">
-        <td>weatherEng-Ro</td>
-        <td >10</td>
-        <td>eng</td>
-        <td>ro</td>
-        <td>March 26, 2018</td>
-        <td>s e d</td>
-      </tr>
-      <tr align="center">
-        <td>weatherEng-Ro</td>
-        <td>10</td>
-        <td>eng</td>
-        <td>ro</td>
-        <td>March 26, 2018</td>
-        <td>s e d</td>
-      </tr>
-      <tr align="center">
-        <td>weatherEng-Ro</td>
-        <td>10</td>
-        <td>eng</td>
-        <td>ro</td>
-        <td>March 26, 2018</td>
-        <td>s e d</td>
-      </tr>
-      </tbody>
-    </table>
+  <div class="row">
+    <!-- Menu
+   ================================================== -->
 
+    <ul class="list-group col-lg-3">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Shared Sets
+          <button type="button" class="btn btn-primary disabled">New set</button>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search a set...">
+        </form>
+      </li>
+
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <h6>Filter </h6>
+        <div class="form-group">
+          <select class="custom-select">
+            <option selected=""> From</option>
+            <option value="1">eng</option>
+            <option value="2">ro</option>
+            <option value="3">es</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <select class="custom-select">
+            <option selected=""> To</option>
+            <option value="1">eng</option>
+            <option value="2">ro</option>
+            <option value="3">es</option>
+          </select>
+        </div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <a [routerLink]="['/sets']">View My Sets</a>
+      </li>
+    </ul>
+
+    <!-- My flashcards Table
+      ================================================== -->
+    <div class="table-responsive col-lg-9">
+      <table class="table table-bordered ">
+        <thead>
+        <tr align="center">
+          <th>Set Name</th>
+          <th>Cards</th>
+          <th>Base Language</th>
+          <th>Foreign Language</th>
+          <th>Created</th>
+          <th>Options</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr align="center" *ngFor="let set of sets">
+          <td a [routerLink]="['/sets/' + set._id]"> {{ set.name }}</td>
+          <td>{{ set.nrOfCards }}</td>
+          <td>{{ set.fromLanguage }}</td>
+          <td>{{ set.toLanguage }}</td>
+          <td>{{ set.createdOn  | date:"dd/MM/yyyy"}} </td>
+          <td>
+            <button type="button" class="btn btn-primary btn-sm">Add to my sets</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
+</div>

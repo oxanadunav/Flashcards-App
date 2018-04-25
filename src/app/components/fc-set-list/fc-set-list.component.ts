@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FlashcardService } from '../../flashcard.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FlashcardService } from '../../services/flashcard.service';
 
 @Component({
   selector: 'app-fc-set-list',
@@ -9,7 +10,7 @@ import { FlashcardService } from '../../flashcard.service';
 export class FcSetListComponent implements OnInit {
   sets: any = [];
 
-  constructor(private fcService: FlashcardService) { }
+  constructor(private route: ActivatedRoute, private router:Router, private fcService: FlashcardService) { }
 
   ngOnInit() {
     this.getSetList();
@@ -19,6 +20,14 @@ export class FcSetListComponent implements OnInit {
     this.fcService.getAllSets().then((res) => {
       this.sets = res;
       console.log(res);
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  deleteSet(id) {
+    this.fcService.deleteSet(id).then((result) => {
+      this.getSetList();
     }, (err) => {
       console.log(err);
     });

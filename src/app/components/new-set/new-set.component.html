@@ -1,0 +1,115 @@
+<div class="container">
+  <h4 align="center" id="pagename">Add new set</h4>
+  <div class="row">
+    <form class="list-group col-lg-3" #setForm="ngForm">
+      <fieldset>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" placeholder="Enter set name" id="name" required  [(ngModel)]="set.name" name="name">
+        </div>
+        <div class="form-group">
+          <label for="from">Base Language</label>
+          <select class="form-control" id="from"  [(ngModel)]="set.fromLanguage" name="fromLanguage" required>
+            <option [ngValue]="undefined" selected>Choose language</option>
+            <option *ngFor="let lang of langs" [value]="lang"> {{lang}}  </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="to">Foreign Language</label>
+          <select class="form-control" id="to"  required [(ngModel)]="set.toLanguage" name="toLanguage">
+            <option [ngValue]="undefined" selected>Choose language</option>
+            <option *ngFor="let lang of langs" [value]="lang"> {{lang}}  </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleTextarea">Description </label>
+          <textarea class="form-control" id="exampleTextarea" rows="4" [(ngModel)]="set.description" name="description"></textarea>
+        </div>
+
+        <fieldset class="form-group">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="optionsRadios" id="words" value="option1" [(ngModel)]="radioSelected" >
+              Enter words separately
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="optionsRadios" id="list" value="option2" [(ngModel)]="radioSelected">
+              Enter list of words
+            </label>
+          </div>
+        </fieldset>
+        <div class="text-left" >
+          <button type="submit" class="btn btn-primary pull-left" (click)="saveSet()">Save set</button>
+        </div>
+      </fieldset>
+    </form>
+
+    <div class ="col-lg-9">
+      <div *ngIf="radioSelected =='option1'; else inputList">
+        <h6 id="instruction">Enter the front side of each word. Press <span class="badge badge-pill badge-info">Enter</span> to add a new row. </h6>
+        <hr>
+        <div class="row">
+          <h6 class="col-lg-5">Front</h6>
+          <h6 class="col-lg-5">Back</h6>
+          <div class="col-lg-2"></div>
+        </div>
+
+        <div class="row" *ngFor="let flashcard of set.flashcards">
+          <!-------Flashcards------>
+          <div class="form-group col-lg-5">
+            <input type="text" class="form-control" placeholder="{{flashcard.front}}" [(ngModel)]="flashcard.front">
+          </div>
+          <div class="form-group col-lg-5">
+            <input type="text" class="form-control" placeholder="{{flashcard.back}}" [(ngModel)]="flashcard.back">
+          </div>
+          <button type="button" class="btn btn-link deletebtn col-lg-1" (click)="deleteFlashcard(flashcard)"><i class="fa fa-trash-o fa-lg"></i>Delete</button>
+
+        </div>
+        <button type="button" class="btn btn-secondary" (click)="addRow()">Add row</button>
+      </div>
+
+
+      <ng-template #inputList>
+        <div class="form-group">
+          <label for="exampleTextarea" id="instruction">Enter the list of words: </label>
+          <textarea class="form-control" id="exampleTextarea" rows="7"></textarea>
+        </div>
+        <div class="text-right">
+          <button type="submit" class="btn btn-primary pull-right" (click)="generateFlashcards()">Generate flashcards</button>
+        </div>
+        <h6>Enter the front side:</h6>
+        <hr>
+        <div class="row">
+          <h6 class="col-lg-5">Front</h6>
+          <h6 class="col-lg-5">Back</h6>
+          <div class="form-group col-lg-5">
+            <input type="text" class="form-control">
+          </div>
+          <div class="form-group col-lg-5">
+            <input type="text" class="form-control">
+          </div>
+          <div class="col-lg-2">Delete</div>
+
+          <div class="form-group col-lg-5">
+            <input type="text" class="form-control" id="inputDefault">
+          </div>
+          <div class="form-group col-lg-5">
+            <input type="text" class="form-control" id="inputDefault">
+          </div>
+          <div class="col-lg-2">Delete</div>
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+
+
+
+    {{diagnostic}}
+
+
+</div>

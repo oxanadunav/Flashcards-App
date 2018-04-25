@@ -1,22 +1,41 @@
 <div class="container">
-  <dl class="list">
-    <dt>Name</dt>
-    <dd>{{ set.name }}</dd>
-    <dt>Description</dt>
-    <dd>{{ set.description }}</dd>
-    <dt>Nr cards</dt>
-    <dd>{{ set.nrOfCards }}</dd>
-    <dt>Created</dt>
-    <dd>{{ set.createdOn }}</dd>
-    <dt>Base language</dt>
-    <dd>{{ set.fromLanguage }}</dd>
-    <dt>Foreign language</dt>
-    <dd>{{ set.toLanguage }}</dd>
-  </dl>
-
-  <div *ngFor="let fc of set.flashcards">
-    {{ fc.front }}
-    {{fc.back }}
-  </div>
+  <div class="row">
 
 </div>
+</div>
+
+
+<!--<div class="container">-->
+  <!--<form class="form-horizontal">-->
+    <!--<div class="form-group">-->
+      <!--<label class="col-lg-2 control-label">Focused</label>-->
+      <!--<div class="col-lg-10">-->
+        <!--<input class="form-control" id="focusedInput" type="text" value="Click to focus">-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<label for="disabledInput" class="col-lg-2 control-label">Disabled</label>-->
+      <!--<div class="col-lg-10">-->
+        <!--<input class="form-control" id="disabledInput" type="text" disabled>-->
+      <!--</div>-->
+    <!--</div>-->
+
+  <!--</form>-->
+
+
+  <!--<div *ngFor="let fc of set.flashcards">-->
+    <!--{{ fc.front }}-->
+    <!--{{fc.back }}-->
+  <!--</div>-->
+  <!--<a [routerLink]="['/sets/' + set._id + '/editset']">-->
+    <!--<button type="button" class="btn btn-primary btn-sm">Edit</button>-->
+  <!--</a>-->
+  <!--<button type="button" class="btn btn-primary btn-sm">Share</button>-->
+  <!--<a [routerLink]="['/sets/' + set._id + '/studyset']">-->
+    <!--<button type="button" class="btn btn-primary btn-sm">Study Set</button>-->
+  <!--</a>-->
+  <!--<a [routerLink]="['/sets/' + set._id + '/viewstatistics']">-->
+    <!--<button type="button" class="btn btn-primary btn-sm">View statistics</button>-->
+  <!--</a>-->
+
+<!--</div>-->
