@@ -9,7 +9,7 @@ import {FlashcardService} from '../../services/flashcard.service';
 })
 export class FcSetComponent implements OnInit {
 
-  // set = {};
+  //set = {};
 
   set = {
     name: 'anotimpuri',
@@ -31,8 +31,8 @@ export class FcSetComponent implements OnInit {
     }]
   };
 
-  viewFlashcards = true;
-  viewStudySet = false;
+  viewFlashcards = false;
+  viewStudySet = true;
   viewStatistics = false;
 
   constructor(private route: ActivatedRoute, private fcService: FlashcardService) {

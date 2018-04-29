@@ -1,0 +1,15 @@
+.card {
+  max-width: 50rem;
+  margin-left: 50px;
+}
+
+#header-bottom {
+  border-bottom: 0px;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.card-body {
+  margin: 90px;
+}
+
+

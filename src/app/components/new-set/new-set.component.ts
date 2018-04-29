@@ -82,6 +82,7 @@ export class NewSetComponent implements OnInit {
     });
   }
 
+
   translateWords() {
     this.gtranslateService.translateWords(this.wordList, this.from, this.to).then((res) => {
       this.introduceFlashcards(res["data"].translations);
