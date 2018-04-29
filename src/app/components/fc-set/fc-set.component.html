@@ -1,41 +1,69 @@
 <div class="container">
+  <h5 align="center"> {{set.name}}</h5>
   <div class="row">
+    <ul class="list-group col-md-4 offset-md-1">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Foreign language
+        <span class="badge badge-success">{{set.fromLanguage}}</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Base language
+        <span class="badge badge-success">{{set.toLanguage}}</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Nr. of cards
+        <span class="badge badge-success">{{set.nrOfCards}}</span>
+      </li>
+    </ul>
+    <div class="list-group col-md-6">
+      <a class="list-group-item  flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+          <h6 class="mb-1">Description</h6>
+        </div>
+        <p class="mb-1">{{set.description}}</p>
+      </a>
+    </div>
+  </div>
 
+  <div class="row">
+    <div class="col-md-4 offset-md-1">
+      <button type="button" class="btn btn-primary btn-sm" (click)="btnStudySetPressed()">Study Set</button>
+      <button type="button" class="btn btn-primary btn-sm" (click)="btnViewStatisticsPressed()">View statistics</button>
+    </div>
+    <div class="col-md-3 offset-md-4">
+      <button type="button" class="btn btn-primary btn-sm">Share</button>
+      <a [routerLink]="['/sets/' + set._id + '/editset']">
+        <button type="button" class="btn btn-primary btn-sm">Edit</button>
+      </a>
+      <button type="button" class="btn btn-primary btn-sm">Delete</button>
+    </div>
+  </div>
+
+  <hr id="separateline">
+
+  <div *ngIf="viewFlashcards">
+    <div class="row">
+      <h6 class="col-md-5 offset-md-1" id="fcinfo">Front</h6>
+      <h6 class="col-md-5" id="fcinfo">Back</h6>
+    </div>
+    <div class="row" *ngFor="let flashcard of set.flashcards">
+      <!-------Flashcards------>
+      <div class="form-group col-md-5 offset-md-1">
+        <input type="text" class="form-control" placeholder="{{flashcard.front}}" readonly="" >
+      </div>
+      <div class="form-group col-md-5">
+        <input type="text" class="form-control" placeholder="{{flashcard.back}}" readonly=""  >
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="viewStudySet">
+    <app-study-set></app-study-set>
+  </div>
+  <div *ngIf="viewStatistics">
+    <app-view-statistics></app-view-statistics>
+  </div>
 </div>
-</div>
 
 
-<!--<div class="container">-->
-  <!--<form class="form-horizontal">-->
-    <!--<div class="form-group">-->
-      <!--<label class="col-lg-2 control-label">Focused</label>-->
-      <!--<div class="col-lg-10">-->
-        <!--<input class="form-control" id="focusedInput" type="text" value="Click to focus">-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label for="disabledInput" class="col-lg-2 control-label">Disabled</label>-->
-      <!--<div class="col-lg-10">-->
-        <!--<input class="form-control" id="disabledInput" type="text" disabled>-->
-      <!--</div>-->
-    <!--</div>-->
 
-  <!--</form>-->
-
-
-  <!--<div *ngFor="let fc of set.flashcards">-->
-    <!--{{ fc.front }}-->
-    <!--{{fc.back }}-->
-  <!--</div>-->
-  <!--<a [routerLink]="['/sets/' + set._id + '/editset']">-->
-    <!--<button type="button" class="btn btn-primary btn-sm">Edit</button>-->
-  <!--</a>-->
-  <!--<button type="button" class="btn btn-primary btn-sm">Share</button>-->
-  <!--<a [routerLink]="['/sets/' + set._id + '/studyset']">-->
-    <!--<button type="button" class="btn btn-primary btn-sm">Study Set</button>-->
-  <!--</a>-->
-  <!--<a [routerLink]="['/sets/' + set._id + '/viewstatistics']">-->
-    <!--<button type="button" class="btn btn-primary btn-sm">View statistics</button>-->
-  <!--</a>-->
-
-<!--</div>-->

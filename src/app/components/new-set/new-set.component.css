@@ -17,3 +17,7 @@
 #line {
   margin-top : 70px;
 }
+
+#languagesNotSelected {
+  color: #E74C3C;
+}

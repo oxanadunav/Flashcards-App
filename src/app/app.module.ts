@@ -26,10 +26,7 @@ const ROUTES = [
   { path: 'sets/:id', component: FcSetComponent },
   { path: 'newset', component: NewSetComponent},
   { path: 'sharedsets', component: FcSharedSetListComponent},
-  { path: 'sets/:id/studyset', component:  StudySetComponent},
   { path: 'sets/:id/editset', component:  EditSetComponent},
-  { path: 'sets/:id/viewstatistics', component:  ViewStatisticsComponent}
-
 ];
 
 @NgModule({

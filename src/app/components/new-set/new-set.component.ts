@@ -18,6 +18,10 @@ export class NewSetComponent implements OnInit {
   languages = this.supportedLanguages.languages;
   from: string;
   to: string;
+  notSelectedLanguages: boolean = true;
+  notGenerated: boolean = true;
+  wordList = [];
+  wordListTextArea = "";
 
   constructor(private fcService: FlashcardService, private gtranslateService: GoogleTranslateService, private router: Router) {
   }
@@ -25,14 +29,16 @@ export class NewSetComponent implements OnInit {
   ngOnInit() {
   }
 
-  // getLanguages() {
-  //   this.gtranslateService.getLanguages().then((res) => {
-  //     this.languages = res.data.languages;
-  //   }, (err) => {
-  //     console.log(err);
-  //   });
-  // }
-
+  saveSet() {
+    this.set.nrOfCards = this.set.flashcards.length;
+    console.log(this.set.nrOfCards);
+    this.fcService.createSet(this.set).then((result) => {
+      let id = result['_id'];
+      this.router.navigate(['/sets', id]);
+    }, (err) => {
+      console.log(err);
+    });
+  }
 
   addRow() {
     this.set.flashcards.push({front:"",back:""});
@@ -40,7 +46,7 @@ export class NewSetComponent implements OnInit {
   }
 
   deleteFlashcard(flashcard) {
-    console.log(flashcard);
+    console.log("Delete:", flashcard);
     let index = this.set.flashcards.indexOf(flashcard);
     if (index > -1) {
       this.set.flashcards.splice(index, 1);
@@ -51,17 +57,21 @@ export class NewSetComponent implements OnInit {
     }
   }
 
-  saveSet() {
-    this.fcService.createSet(this.set).then((result) => {
-      let id = result['_id'];
-      this.router.navigate(['/sets', id]);
-    }, (err) => {
-      console.log(err);
-    });
+  getForeignLanguage() {
+    var languageObj = this.languages.find(o => o.name === this.set.fromLanguage);
+    this.from = languageObj.language;
+    this.notSelectedLanguages = !((this.set.fromLanguage) && (this.set.toLanguage));
   }
 
-  generateFlashcards() {
-    console.log("Generate flashcards entered");
+  getBaseLanguage() {
+    var languageObj = this.languages.find(o => o.name === this.set.toLanguage);
+    this.to = languageObj.language;
+    this.notSelectedLanguages = !((this.set.fromLanguage) && (this.set.toLanguage));
+  }
+
+  enterPressed(id:number) {
+    this.translateWord(id);
+    this.addRow();
   }
 
   translateWord(id:number) {
@@ -70,20 +80,39 @@ export class NewSetComponent implements OnInit {
     }, (err) => {
       console.log(err);
     });
+  }
+
+  translateWords() {
+    this.gtranslateService.translateWords(this.wordList, this.from, this.to).then((res) => {
+      this.introduceFlashcards(res["data"].translations);
+    }, (err) => {
+      console.log(err);
+    });
 
   }
 
-  getBaseLanguage() {
-    var languageObj = this.languages.find(o => o.name === this.set.fromLanguage);
-    this.from = languageObj.language;
+  introduceFlashcards(translatedWordList) {
+    for (var i = 0; i < this.wordList.length; i++) {
+      this.set.flashcards.push({front: this.wordList[i],back: translatedWordList[i].translatedText});
+      this.setLength = this.wordList.length;
+    }
   }
 
-  getForeignLanguage() {
-    var languageObj = this.languages.find(o => o.name === this.set.toLanguage);
-    this.to = languageObj.language;
+  generateFlashcards() {
+    if (!this.notSelectedLanguages) {
+      if (this.setLength == 1) {
+        this.set.flashcards.splice(0, 1);
+        this.setLength -= 1;
+      }
+      this.notGenerated = false;
+      this.wordList = this.wordListTextArea.split(' ');
+      if (this.wordList.length == 1) {
+        this.wordList = this.wordListTextArea.split(/\n/);
+      }
+
+      this.translateWords();
+    }
+
   }
 
-  get diagnostic() {
-    return JSON.stringify(this.set);
-  }
 }

@@ -1,0 +1,30 @@
+#separateline {
+  margin-top: 5px;
+  margin-bottom: 30px;
+  margin-left: 80px;
+  margin-right: 80px;
+  padding-left, padding-right: 15px;
+}
+
+.form-control[readonly] {
+  background-color: #ffffff;
+  opacity: 1;
+}
+
+.form-control::placeholder {
+  color: dimgrey;
+  opacity: 1;
+}
+
+#fcinfo {
+  margin-bottom: 15px;
+}
+
+.badge {
+  font-size: 85%;
+}
+
+.list-group {
+  padding: 15px;
+  margin-bottom: 15px;
+}
