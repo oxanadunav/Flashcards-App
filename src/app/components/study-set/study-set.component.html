@@ -1,8 +1,94 @@
-<div class="card border-secondary mb-3">
-  <div class="card-header">Header</div>
-  <div class="card-body">
-    <h2 class="card-title" align="center">apple</h2>
-
+<!--Choose study mode-->
+<div class="card border-secondary mb-3" *ngIf="modeNotChosen">
+  <div class="card-header">
+    <div class="text-right" >
+      <button type="button" class="btn btn-link" id="closeStudyBtn" data-toggle="tooltip" data-placement="top" title="Finish study" data-toggle="modal" data-target="#myModal"><i class="fa fa-times fa-lg"></i></button>
+    </div>
   </div>
-  <div class="card-header" id="header-bottom">Header2</div>
+  <div class="card-body" id="choosemode-card-body">
+    <h4 class="card-title" align="center">Choose study mode</h4>
+  </div>
+  <div class="row">
+    <div class="col-md-3 offset-md-2 ">
+      <button type="button" class="btn btn-secondary choosemode-button bs-component" data-toggle="tooltip" data-placement="top" title="Swipe through the flashcards and learn at your own pace" (click)="memorizePressed()">Memorize</button>
+    </div>
+    <div class="col-md-5 offset-md-2 ">
+      <button type="button" class="btn btn-secondary choosemode-button bs-component" data-toggle="tooltip" data-placement="top" title="Test your knowledge" (click)="testPressed()">Test</button>
+    </div>
+  </div>
+  <div class="card-header choosemode-header" id="header-bottom"></div>
 </div>
+
+
+<!--Memorize mode-->
+<div class="card border-secondary mb-3" *ngIf="memorizeMode">
+  <!--First row of buttons-->
+  <div class="card-header">
+    <div class="row">
+      <button type="button" class="btn btn-link col-md-2"  data-toggle="tooltip" data-placement="top" title="Shuffle" (click)="btnShufflePressed()"><i class="fa fa-random fa-lg"></i></button>
+      <button type="button" class="btn btn-link sideBtn col-md-2" (click)="frontSide = !frontSide">{{frontSide ? "Back" : "Front"}} first</button>
+      <button type="button" class="btn btn-link sideBtn col-md-2" (click)="oneSide = !oneSide">{{oneSide ? "Both sides" : "One side"}}</button>
+      <h5 class="col-md-2 offset-md-2" align="right">{{index + 1}}/{{setLength}}</h5>
+      <button type="button" class="btn btn-link col-md-1" id="closeStudyBtn" data-toggle="tooltip" data-placement="top" title="Finish study" data-toggle="modal" data-target="#myModal"><i class="fa fa-times fa-lg"></i></button>
+    </div>
+  </div>
+  <span class="badge badge-light col-md-2" *ngIf="shuffledEdited">Shuffle is {{shuffled ? "on" : "off"}}</span>
+
+  <!--middle text-->
+  <div class="card-body" *ngIf="oneSide; else bothSides">
+    <h3 class="card-title" align="center">{{((frontSide && !flipped) || (!frontSide && flipped)) ? flashcard.front : flashcard.back}}</h3>
+  </div>
+
+  <ng-template #bothSides>
+    <div class="card-body" id="card-bothsides">
+      <div class="row" >
+        <h6 class="col-md-6" align="center">{{frontSide ? "Front" : "Back"}}</h6>
+        <h6 class="col-md-6" align="center">{{frontSide ? "Back" : "Front"}}</h6>
+        <h3 class="card-title col-md-6" align="center">{{ frontSide ? flashcard.front : flashcard.back }}</h3>
+        <h3 class="card-title col-md-6" align="center">{{ frontSide ? flashcard.back : flashcard.front }}</h3>
+      </div>
+    </div>
+  </ng-template>
+
+
+  <!--Second row of buttons-->
+  <div class="card-header" id="header-bottom">
+    <div class="row">
+      <button type="button" class="btn btn-link col-md-2" (click)="showPrevious()" *ngIf="(index > 0) else leftDisabled"><i class="fa fa-arrow-left fa-lg"></i></button>
+      <ng-template #leftDisabled> <button type="button" class="btn btn-link disabled col-md-2"><i class="fa fa-arrow-left fa-lg"></i></button></ng-template>
+
+      <button type="button" class="btn btn-link sideBtn col-md-2 offset-md-3" *ngIf="oneSide else flipDisabled" (click)="flipped = !flipped">Flip</button>
+      <ng-template #flipDisabled> <button type="button" class="btn btn-link disabled sideBtn col-md-2 offset-md-3">Flip</button></ng-template>
+
+      <button type="button" class="btn btn-link col-md-2 offset-md-3" (click)="showNext()" *ngIf="(index <= (setLength - 2)) else rightDisabled"><i class="fa fa-arrow-right fa-lg"></i></button>
+      <ng-template #rightDisabled> <button type="button" class="btn btn-link disabled col-md-2 offset-md-3"><i class="fa fa-arrow-right fa-lg"></i></button></ng-template>
+
+    </div>
+  </div>
+</div>
+
+
+<!--Close study-->
+<div class="modal" id="myModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">What do you want to do?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>You can choose the study mode again. </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="studyAgain()">Study</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="sendMessageToFcSet()">Return to flashcards</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

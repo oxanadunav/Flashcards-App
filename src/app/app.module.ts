@@ -6,8 +6,6 @@ import {HttpClientModule} from '@angular/common/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { AppBootstrapModule } from './modules/app-bootstrap.module';
-
 import { FlashcardService} from './services/flashcard.service';
 import {GoogleTranslateService} from './services/google-translate.service';
 
@@ -44,7 +42,6 @@ const ROUTES = [
   ],
   imports: [
     BrowserModule,
-    AppBootstrapModule,
     HttpModule,
     HttpClientModule,
     FormsModule,

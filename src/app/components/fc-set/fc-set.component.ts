@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {FlashcardService} from '../../services/flashcard.service';
+import {StudySetComponent} from '../study-set/study-set.component';
 
 @Component({
   selector: 'app-fc-set',
   templateUrl: './fc-set.component.html',
   styleUrls: ['./fc-set.component.css']
 })
-export class FcSetComponent implements OnInit {
-
+export class FcSetComponent implements OnInit  {
   //set = {};
 
   set = {
@@ -43,6 +43,14 @@ export class FcSetComponent implements OnInit {
     //this.getSet(this.route.snapshot.params['id']);
   }
 
+  receiveMessageFromStudySet() {
+    this.viewFlashcards = true;
+    this.viewStudySet = false;
+    this.viewStatistics = false;
+  }
+
+
+
   // getSet(id) {
   //   this.fcService.getSet(id).then((res) => {
   //     this.set = res;
@@ -55,12 +63,13 @@ export class FcSetComponent implements OnInit {
   btnStudySetPressed() {
     this.viewStudySet = true;
     this.viewFlashcards = false;
+    this.viewStatistics = false;
   }
 
   btnViewStatisticsPressed() {
     this.viewStatistics = true;
     this.viewFlashcards = false;
+    this.viewStudySet = false;
   }
-
 }
 
