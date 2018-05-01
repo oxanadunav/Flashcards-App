@@ -1,3 +1,122 @@
-<p>
-  edit-set works!
-</p>
+<div class="container">
+  <h4 align="center" id="pagename">Edit set: {{infoName}} </h4>
+  <div class="row">
+    <form class="list-group col-lg-3" #setForm="ngForm">
+      <fieldset>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" placeholder="Enter set name" id="name" required  [(ngModel)]="set.name" name="name">
+        </div>
+        <div class="form-group">
+          <label for="from">Foreign Language</label>
+          <select class="form-control" id="from"  [(ngModel)]="set.fromLanguage" name="fromLanguage" required (ngModelChange)="getForeignLanguage()">
+            <option [ngValue]="undefined" selected>Choose language</option>
+            <option *ngFor="let lang of languages" [value]="lang.name"> {{lang.name}}  </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="to">Base Language</label>
+          <select class="form-control" id="to"  required [(ngModel)]="set.toLanguage" name="toLanguage" (ngModelChange)="getBaseLanguage()">
+            <option [ngValue]="undefined" selected>Choose language</option>
+            <option *ngFor="let lang of languages" [value]="lang.name"> {{lang.name}}  </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleTextarea">Description </label>
+          <textarea class="form-control" id="exampleTextarea" rows="4" [(ngModel)]="set.description" name="description"></textarea>
+        </div>
+
+        <fieldset class="form-group">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="optionsRadios" id="words" value="option1" [(ngModel)]="radioSelected" >
+              Enter words separately
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="optionsRadios" id="list" value="option2" [(ngModel)]="radioSelected">
+              Enter list of words
+            </label>
+          </div>
+        </fieldset>
+        <div class="text-left" >
+          <button type="submit" class="btn btn-primary pull-left" (click)="updateSet()">Update set</button>
+        </div>
+      </fieldset>
+    </form>
+
+
+
+    <!--Enter words separately-->
+
+    <div class ="col-lg-9">
+      <div *ngIf="radioSelected =='option1'; else inputList">
+        <h6 id="instruction">Enter the front side of each word. Press <span class="badge badge-pill badge-info">Enter</span> to add a new row. </h6>
+        <hr>
+        <div class="row">
+          <h6 class="col-lg-5">Front</h6>
+          <h6 class="col-lg-5">Back</h6>
+          <div class="col-lg-2"></div>
+        </div>
+
+
+        <div class="row" *ngFor="let flashcard of set.flashcards let i = index" [attr.data-index]="i">
+          <!-------Flashcards------>
+          <div class="form-group col-lg-5">
+            <input (keyup.enter)="enterPressed(i)" type="text" class="form-control" placeholder="{{flashcard.front}}" [(ngModel)]="flashcard.front" (ngModelChange)="translateWord(i)">
+          </div>
+          <div class="form-group col-lg-5">
+            <input type="text" class="form-control" placeholder="{{flashcard.back}}" [(ngModel)]="flashcard.back">
+          </div>
+          <button type="button" class="btn btn-link deletebtn col-lg-1" (click)="deleteFlashcard(flashcard)"><i class="fa fa-trash-o fa-lg"></i>Delete</button>
+
+        </div>
+        <div id="languagesNotSelected" *ngIf="notSelectedLanguages">Base and foreign languages must be selected</div>
+        <button type="button" class="btn btn-secondary" (click)="addRow()">Add row</button>
+      </div>
+
+      <!--Enter list-->
+
+      <ng-template #inputList>
+        <div class="form-group">
+          <label for="exampleTextarea" id="instruction">Enter the list of words </label>
+          <textarea class="form-control" id="exampleTextarea" rows="7" [(ngModel)]="wordListTextArea">  </textarea>
+        </div>
+        <div class="text-right">
+          <button type="submit" class="btn btn-primary pull-right" (click)="generateFlashcards()">Generate flashcards</button>
+        </div>
+        <div id="languagesNotSelected" *ngIf="notSelectedLanguages">Base and foreign languages must be selected</div>
+
+        <div *ngIf="notGenerated; else showFlashcards"></div>
+
+
+        <!-------Flashcards------>
+        <ng-template  #showFlashcards>
+          <hr id="line">
+          <div class="row">
+            <h6 class="col-lg-5">Front</h6>
+            <h6 class="col-lg-5">Back</h6>
+            <div class="col-lg-2"></div>
+          </div>
+          <div class="row" *ngFor="let flashcard of set.flashcards let i = index" [attr.data-index]="i" >
+            <!-------Flashcards------>
+            <div class="form-group col-lg-5">
+              <input (keyup.enter)="enterPressed(i)" type="text" class="form-control" placeholder="{{flashcard.front}}" [(ngModel)]="flashcard.front" (ngModelChange)="translateWord(i)">
+            </div>
+            <div class="form-group col-lg-5">
+              <input type="text" class="form-control" placeholder="{{flashcard.back}}" [(ngModel)]="flashcard.back">
+            </div>
+            <button type="button" class="btn btn-link deletebtn col-lg-1" (click)="deleteFlashcard(flashcard)"><i class="fa fa-trash-o fa-lg"></i>Delete</button>
+          </div>
+          <button type="button" class="btn btn-secondary" (click)="addRow()">Add row</button>
+        </ng-template>
+      </ng-template>
+
+    </div>
+  </div>
+
+</div>
+

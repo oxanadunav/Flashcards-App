@@ -92,6 +92,8 @@ export class NewSetComponent implements OnInit {
 
   }
 
+
+  // From list generate separate flashcards
   introduceFlashcards(translatedWordList) {
     for (var i = 0; i < this.wordList.length; i++) {
       this.set.flashcards.push({front: this.wordList[i],back: translatedWordList[i].translatedText});

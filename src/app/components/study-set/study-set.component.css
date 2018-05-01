@@ -13,12 +13,23 @@
   padding-right: 15px;
 }
 
-.card-header > .row > h5 {
+#flashcardNr{
   color: #1c6b7a;
   padding-top: 10px;
   margin-right: 25px;
 }
 
+.card-header > .row > h6 {
+  padding-top: 12px;
+}
+
+#testFlashcardNr {
+  color: #1c6b7a;
+  padding-top: 10px;
+  margin-right: 0px;
+  padding-right: 5px;
+  margin-left: 180px;
+}
 
 .choosemode-button {
   width: 150px;
@@ -29,6 +40,24 @@
 #choosemode-card-body {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+#choosetestoptions-card-body {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#choosetestoptions-card-body > .row > h5 {
+  margin-bottom: 25px;
+}
+
+#right {
+  margin-left: 15px;
+  color: #159779;
+}
+
+#wrong {
+  color: #E74C3C;
 }
 
 #header-bottom {
@@ -70,13 +99,47 @@
   background-color: #8ea59d;
 }
 
-#closeStudyBtn:hover {
+#closeStudyBtn:hover, #btnWrong:hover {
   color: #fff;
   background-color: #E74C3C;
 }
 
-.badge{
+#shuffleInfoBadge{
   background-color: #fff;
   margin-top:5px;
 }
 
+/*testMode*/
+#btnCorrect {
+  background-color: #18BC9C;
+  color:  #fff;
+  margin-left:175px;
+}
+
+#btnCorrect:hover {
+  background-color: #43bc7f;
+  color:  #fff;
+}
+
+#btnWrong {
+  color: #fff;
+  background-color: #E74C3C;
+}
+
+#btnWrong:hover {
+  background-color: #e7654e;
+  color:  #fff;
+}
+
+#btnShowAnswer {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #5c95a5;
+  margin-left: 230px;
+}
+
+#btnShowAnswer:hover {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #8ea59d;
+}

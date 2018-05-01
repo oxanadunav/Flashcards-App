@@ -9,41 +9,38 @@
         <a [routerLink]="['/newset']">
           <button type="button" class="btn btn-secondary">New set</button>
         </a>
-
       </li>
+
       <li class="list-group-item d-flex justify-content-between align-items-center">
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search a set...">
+        <form class="form-inline my-2 my-lg-0" >
+          <input class="form-control" type="text" placeholder="Search a set...">
+          <button type="button" class="btn btn-secondary"><i class="fa fa-search"></i></button>
         </form>
       </li>
 
       <li class="list-group-item d-flex justify-content-between align-items-center">
         <h6>Filter </h6>
         <div class="form-group">
-          <select class="custom-select">
-            <option selected=""> From</option>
-            <option value="1">eng</option>
-            <option value="2">ro</option>
-            <option value="3">es</option>
+          <select class="custom-select" [(ngModel)]="from" name="fromLanguage" (ngModelChange)="fromFilterSelected()" >
+            <option [ngValue]="undefined" selected> From</option>
+            <option *ngFor="let lang of languages" [value]="lang.name"> {{lang.name}}  </option>
           </select>
         </div>
 
         <div class="form-group">
-          <select class="custom-select">
-            <option selected=""> To</option>
-            <option value="1">eng</option>
-            <option value="2">ro</option>
-            <option value="3">es</option>
+          <select class="custom-select" [(ngModel)]="to" name="fromLanguage" (ngModelChange)="toFilterSelected()">
+            <option [ngValue]="undefined" selected> To</option>
+            <option *ngFor="let lang of languages" [value]="lang.name"> {{lang.name}}  </option>
           </select>
         </div>
+
+        <button class="btn btn-link" id="clearFilter" data-toggle="tooltip" data-placement="right" title="Clear filter" data-original-title="Tooltip on right"><i class="fa fa-times"></i></button>
       </li>
+
       <li class="list-group-item d-flex justify-content-between align-items-center">
-
         <a [routerLink]="['/sharedsets']">View Shared Sets</a>
-
       </li>
     </ul>
-
     <!-- My flashcards Table
       ================================================== -->
     <div class="table-responsive col-lg-9">
@@ -60,7 +57,7 @@
         </thead>
         <tbody>
         <tr align="center" *ngFor="let set of sets">
-          <td a [routerLink]="['/sets/' + set._id]"> {{ set.name }}</td>
+          <td a [routerLink]="['/sets/' + set._id]" id="setName"> {{ set.name }}</td>
           <td>{{ set.nrOfCards }}</td>
           <td>{{ set.fromLanguage }}</td>
           <td>{{ set.toLanguage }}</td>

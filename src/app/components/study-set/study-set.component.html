@@ -28,11 +28,11 @@
       <button type="button" class="btn btn-link col-md-2"  data-toggle="tooltip" data-placement="top" title="Shuffle" (click)="btnShufflePressed()"><i class="fa fa-random fa-lg"></i></button>
       <button type="button" class="btn btn-link sideBtn col-md-2" (click)="frontSide = !frontSide">{{frontSide ? "Back" : "Front"}} first</button>
       <button type="button" class="btn btn-link sideBtn col-md-2" (click)="oneSide = !oneSide">{{oneSide ? "Both sides" : "One side"}}</button>
-      <h5 class="col-md-2 offset-md-2" align="right">{{index + 1}}/{{setLength}}</h5>
+      <h5 class="col-md-2 offset-md-2" align="right" id="flashcardNr">{{index + 1}}/{{setLength}}</h5>
       <button type="button" class="btn btn-link col-md-1" id="closeStudyBtn" data-toggle="tooltip" data-placement="top" title="Finish study" data-toggle="modal" data-target="#myModal"><i class="fa fa-times fa-lg"></i></button>
     </div>
   </div>
-  <span class="badge badge-light col-md-2" *ngIf="shuffledEdited">Shuffle is {{shuffled ? "on" : "off"}}</span>
+  <span class="badge badge-light col-md-2" id="shuffleInfoBadge" *ngIf="shuffledEdited">Shuffle is {{shuffled ? "on" : "off"}}</span>
 
   <!--middle text-->
   <div class="card-body" *ngIf="oneSide; else bothSides">
@@ -67,6 +67,99 @@
   </div>
 </div>
 
+<!--Test mode-->
+<div class="card border-secondary mb-3" *ngIf="testMode && testOptionsChosen">
+
+  <!--First row of buttons-->
+  <div class="card-header">
+    <div class="row">
+      <h6 class="col-md-2"  id="right">Right: {{ rightAnswered }}</h6>
+      <h6 class="col-md-2" id="wrong">Wrong: {{ wrongAnswered }}</h6>
+      <h5 class="col-md-2" align="center" id="testFlashcardNr">{{index + 1}}/{{setLength}}</h5>
+      <button type="button" class="btn btn-link col-md-1"><i class="fa fa-question-circle fa-lg"></i></button>
+      <button type="button" class="btn btn-link col-md-1" id="closeStudyBtn" data-toggle="tooltip" data-placement="top" title="Finish study" data-toggle="modal" data-target="#myModal"><i class="fa fa-times fa-lg"></i></button>
+    </div>
+  </div>
+
+  <!--middle text-->
+  <div class="card-body" *ngIf="!testFinished; else showTestFinished">
+    <h3 class="card-title" align="center" *ngIf="sideRadioSelected == 'sideRadio1'; else sideRadio2"> {{ !answerShown ? flashcard.front : flashcard.back}}</h3>
+    <ng-template #sideRadio2>
+      <h3 class="card-title" align="center"> {{ !answerShown ? flashcard.back : flashcard.front}}</h3>
+    </ng-template>
+  </div>
+
+  <ng-template #showTestFinished>
+    <div class="card-body" id="choosemode-card-body">
+      <h5 class="card-title" align="center">Test is finished</h5>
+    </div>
+    <div class="row">
+      <div class="col-md-3 offset-md-2 ">
+        <button type="button" class="btn btn-secondary choosemode-button"  (click)="studyAgain()">Study again</button>
+      </div>
+      <div class="col-md-5 offset-md-2 ">
+        <button type="button" class="btn btn-secondary choosemode-button" (click)="sendMessageToFcSet()">Return to flashcards</button>
+      </div>
+    </div>
+    <div class="card-header choosemode-header" id="header-bottom"></div>
+  </ng-template>
+
+  <!--Second row of buttons-->
+  <div class="card-header" id="header-bottom" *ngIf="!testFinished">
+    <div class="row">
+      <button type="button" class="btn btn-link col-md-2" id="btnCorrect" *ngIf="answerShown" (click)="rightAnswer()"><i class="fa fa-check fa-lg"></i></button>
+      <button type="button" class="btn btn-link col-md-2 offset-md-1" id="btnWrong" *ngIf="answerShown" (click)="wrongAnswer()"><i class="fa fa-times fa-lg"></i></button>
+      <button type="button" class="btn btn-link col-md-3" *ngIf="!answerShown" id="btnShowAnswer" (click)="answerShown = !answerShown">Show answer</button>
+    </div>
+  </div>
+</div>
+
+<!--Choose test options-->
+<div class="card border-secondary mb-3" *ngIf="testMode && !testOptionsChosen">
+  <!--Top row-->
+  <div class="card-header">
+    <div class="text-right" >
+      <button type="button" class="btn btn-link" id="closeStudyBtn" data-toggle="tooltip" data-placement="top" title="Finish study" data-toggle="modal" data-target="#myModal"><i class="fa fa-times fa-lg"></i></button>
+    </div>
+  </div>
+
+  <!--middle-->
+  <div class="card-body" id="choosetestoptions-card-body">
+    <div class="row">
+      <h5 class="col-md-12" align="center">Select test options</h5>
+      <h5 class="col-md-6">Order of flashcards</h5>
+      <h5 class="col-md-6">Which side to show</h5>
+
+      <!--Order of flashcards-->
+      <div class="form-group col-md-6">
+        <div class="custom-control custom-radio">
+          <input type="radio" id="orderRadio1" name="orderRadio" class="custom-control-input" value="orderRadio1" [(ngModel)]="orderRadioSelected">
+          <label class="custom-control-label" for="orderRadio1">Initial order</label>
+        </div>
+        <div class="custom-control custom-radio">
+          <input type="radio" id="orderRadio2" name="orderRadio" class="custom-control-input" value="orderRadio2" [(ngModel)]="orderRadioSelected">
+          <label class="custom-control-label" for="orderRadio2">Shuffle</label>
+        </div>
+      </div>
+
+      <!--By front/back side-->
+      <div class="form-group col-md-6">
+        <div class="custom-control custom-radio">
+          <input type="radio" id="sideRadio1" name="sideRadio" class="custom-control-input" value="sideRadio1" [(ngModel)]="sideRadioSelected">
+          <label class="custom-control-label" for="sideRadio1">Front side</label>
+        </div>
+        <div class="custom-control custom-radio">
+          <input type="radio" id="sideRadio2" name="sideRadio" class="custom-control-input" value="sideRadio2" [(ngModel)]="sideRadioSelected">
+          <label class="custom-control-label" for="sideRadio2">Back side</label>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-secondary col-md-3 offset-md-4" (click)="startTest()">Start</button>
+    </div>
+  </div>
+  <!--Bottom row-->
+  <div class="card-header choosemode-header" id="header-bottom"></div>
+</div>
 
 <!--Close study-->
 <div class="modal" id="myModal">
@@ -79,7 +172,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>You can choose the study mode again. </p>
+        <p *ngIf="memorizeMode">You can choose the study mode again. </p>
+        <p *ngIf="testMode">Your progress will be lost. </p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="studyAgain()">Study</button>

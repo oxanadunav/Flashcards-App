@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlashcardService } from '../../services/flashcard.service';
+import {SupportedLanguages} from '../../supported-languages';
 
 @Component({
   selector: 'app-fc-set-list',
@@ -9,6 +10,17 @@ import { FlashcardService } from '../../services/flashcard.service';
 })
 export class FcSetListComponent implements OnInit {
   sets: any = [];
+
+  //name to search
+  searchName:string;
+
+  //for language filter
+  supportedLanguages = new SupportedLanguages();
+  languages = this.supportedLanguages.languages;
+  from: string;
+  to: string;
+
+
 
   constructor(private route: ActivatedRoute, private router:Router, private fcService: FlashcardService) { }
 
@@ -31,6 +43,17 @@ export class FcSetListComponent implements OnInit {
     }, (err) => {
       console.log(err);
     });
+  }
+
+  fromFilterSelected() {
+
+  }
+
+  toFilterSelected() {
+
+  }
+
+  clearFilter() {
   }
 
 

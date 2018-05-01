@@ -1,0 +1,23 @@
+#instruction {
+  margin-top: 10px;
+}
+
+#pagename {
+  margin-bottom: 15px;
+}
+
+.deletebtn {
+  margin-top :0px;
+  padding-top:0px;
+  padding-bottom:0px;
+  height:35px;
+  color: #767676;
+}
+
+#line {
+  margin-top : 70px;
+}
+
+#languagesNotSelected {
+  color: #E74C3C;
+}

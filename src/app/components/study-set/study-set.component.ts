@@ -10,15 +10,17 @@ export class StudySetComponent implements OnInit {
   @Input() flashcards;
   @Output() messageEvent = new EventEmitter();
 
-  setLength: Number;
+  // Data for flashcards in template
+  setLength: number;
   usedFlashcards;
   index;
   flashcard: String;
 
-  modeNotChosen = true;
+  modeNotChosen = false;
   memorizeMode = false;
-  testMode = false;
+  testMode = true;
 
+  // For memorize mode
   shuffled = false;
   shuffledEdited = false;
   flipped = false;
@@ -26,6 +28,15 @@ export class StudySetComponent implements OnInit {
   frontSide = true; //show front first
   oneSide = true; //show just one side
 
+  // For test mode
+  testOptionsChosen: boolean;
+  orderRadioSelected: string = "orderRadio1";
+  sideRadioSelected: string = "sideRadio1";
+
+  answerShown = false;
+  testFinished: boolean;
+  rightAnswered: number;
+  wrongAnswered: number;
 
   constructor() {
   }
@@ -34,20 +45,24 @@ export class StudySetComponent implements OnInit {
     console.log("flashcards from fc-set parent", this.flashcards);
     this.setLength = this.flashcards.length;
     this.usedFlashcards = this.flashcards;
-    this. index = 0; // index in flashcards array
+    this.index = 0; // index in flashcards array
     this.flashcard = this.usedFlashcards[this.index]; // initial flashcard
   }
 
+  // To see flashcards
   sendMessageToFcSet() {
     this.messageEvent.emit();
   }
 
   memorizePressed() {
-    this.modeNotChosen = false;
     this.memorizeMode = true;
+    this.modeNotChosen = false;
+    this.testMode = false;
   }
 
   testPressed() {
+    this.testOptionsChosen = false;
+    this.testMode = true;
     this.modeNotChosen = false;
     this.memorizeMode = false;
   }
@@ -56,9 +71,10 @@ export class StudySetComponent implements OnInit {
     this.modeNotChosen = true;
     this.memorizeMode = false;
     this.testMode = false;
-
+    this.index = 0;
   }
 
+  /* In memorize mode */
   btnShufflePressed() {
     if (this.shuffled) {
       this.usedFlashcards = this.flashcards;
@@ -106,6 +122,53 @@ export class StudySetComponent implements OnInit {
       this.index++;
       this.flashcard = this.usedFlashcards[this.index];
       this.flipped = false;
+  }
+
+
+  /* In test mode */
+
+  startTest() {
+    this.testOptionsChosen = true;
+    this.rightAnswered = 0;
+    this.wrongAnswered = 0;
+    this.testFinished = false;
+
+    // if shuffled selected
+    if (this.orderRadioSelected == "orderRadio1") {
+      this.usedFlashcards = this.flashcards;
+    }
+    else {
+      this.usedFlashcards = this.shuffle(this.flashcards.slice(0)); //send a copy of array
+    }
+
+    // back side was selected
+    if (this.sideRadioSelected == "sideRadio2") {
+      this.frontSide = false;
+    }
+
+    this.flashcard = this.usedFlashcards[this.index];
+  }
+
+  rightAnswer() {
+    this.answerShown = !this.answerShown;
+    this.index++;
+    this.flashcard = this.usedFlashcards[this.index];
+    this.rightAnswered++;
+    if (this.index == this.usedFlashcards.length) {
+      this.index--;
+      this.testFinished = true;
+    }
+  }
+
+  wrongAnswer() {
+    this.answerShown = !this.answerShown;
+    this.index++;
+    this.flashcard = this.usedFlashcards[this.index];
+    this.wrongAnswered++;
+    if (this.index == this.usedFlashcards.length) {
+      this.index--;
+      this.testFinished = true;
+    }
   }
 
 }
