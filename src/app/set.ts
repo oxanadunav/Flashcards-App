@@ -1,6 +1,7 @@
 import {Flashcard} from './flashcard';
 
 export class Set {
+  _id: string;
   name: string;
   description: string;
   fromLanguage: string;

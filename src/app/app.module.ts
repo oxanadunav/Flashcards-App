@@ -18,6 +18,8 @@ import { NewSetComponent} from './components/new-set/new-set.component';
 import { StudySetComponent } from './components/study-set/study-set.component';
 import { EditSetComponent } from './components/edit-set/edit-set.component';
 import { ViewStatisticsComponent } from './components/view-statistics/view-statistics.component';
+import { LoginComponent } from './components/login/login.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const ROUTES = [
   { path: '', redirectTo: 'sets', pathMatch: 'full' },
@@ -38,7 +40,9 @@ const ROUTES = [
     NewSetComponent,
     StudySetComponent,
     EditSetComponent,
-    ViewStatisticsComponent
+    ViewStatisticsComponent,
+    LoginComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

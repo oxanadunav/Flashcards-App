@@ -8,9 +8,9 @@ export class FlashcardService {
   constructor(private http: Http) { }
 
   // get("/api/sets")
-  getAllSets() {
+  getAllSets(query) {
     return new Promise((resolve, reject) => {
-      this.http.get('/api/sets')
+      this.http.get('/api/sets'+ query)
         .map(res => res.json())
         .subscribe(res => {
           resolve(res);

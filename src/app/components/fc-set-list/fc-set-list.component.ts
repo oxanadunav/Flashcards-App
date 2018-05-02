@@ -12,15 +12,14 @@ export class FcSetListComponent implements OnInit {
   sets: any = [];
 
   //name to search
-  searchName:string;
+  searchName: string;
 
   //for language filter
   supportedLanguages = new SupportedLanguages();
   languages = this.supportedLanguages.languages;
   from: string;
   to: string;
-
-
+  query:string = "";
 
   constructor(private route: ActivatedRoute, private router:Router, private fcService: FlashcardService) { }
 
@@ -29,7 +28,8 @@ export class FcSetListComponent implements OnInit {
   }
 
   getSetList() {
-    this.fcService.getAllSets().then((res) => {
+    console.log("query", this.query);
+    this.fcService.getAllSets(this.query).then((res) => {
       this.sets = res;
       console.log(res);
     }, (err) => {
@@ -46,7 +46,6 @@ export class FcSetListComponent implements OnInit {
   }
 
   fromFilterSelected() {
-
   }
 
   toFilterSelected() {
@@ -54,8 +53,10 @@ export class FcSetListComponent implements OnInit {
   }
 
   clearFilter() {
+
   }
 
+  searchByName() {
 
-
+  }
 }

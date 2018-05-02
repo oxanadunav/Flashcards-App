@@ -17,7 +17,7 @@ export class FcSharedSetListComponent implements OnInit {
   }
 
   getSetList() {
-    this.fcService.getAllSets().then((res) => {
+    this.fcService.getAllSets("").then((res) => {
       this.sets = res;
       console.log(res);
     }, (err) => {

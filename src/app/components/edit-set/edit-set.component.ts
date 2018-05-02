@@ -4,6 +4,7 @@ import {FlashcardService} from '../../services/flashcard.service';
 import {SupportedLanguages} from '../../supported-languages';
 import {GoogleTranslateService} from '../../services/google-translate.service';
 import {Set} from '../../set';
+import {Flashcard} from '../../flashcard';
 
 @Component({
   selector: 'app-edit-set',
@@ -12,7 +13,7 @@ import {Set} from '../../set';
 })
 export class EditSetComponent implements OnInit {
   // set = {
-  //   _id: '5ad99c20414a797db1262f33',
+  //   // _id: '5ad99c20414a797db1262f33',
   //   name: 'anotimpuri',
   //   fromLanguage: 'English',
   //   toLanguage: 'Romanian',
@@ -31,9 +32,9 @@ export class EditSetComponent implements OnInit {
   //     back: 'toamna'
   //   }]
   // };
-  set: any;
+  set = new Set();
 
-  setLength: number = this.set.flashcards.length;
+  setLength: number;
   radioSelected: string = "option1";
   supportedLanguages = new SupportedLanguages();
   languages = this.supportedLanguages.languages;
@@ -43,22 +44,23 @@ export class EditSetComponent implements OnInit {
   notGenerated: boolean = true;
   wordList = [];
   wordListTextArea = "";
-  infoName = this.set.name;
+  infoName: string;
 
   constructor(private route: ActivatedRoute, private fcService: FlashcardService, private gtranslateService: GoogleTranslateService, private router: Router) {
-    console.log("Edit set entered. Current set:", this.set);
   }
 
   ngOnInit () {
-    this.getForeignLanguage();
-    this.getBaseLanguage();
     this.getSet(this.route.snapshot.params['id']);
+    console.log("Edit set entered. Current set:", this.set);
   }
 
   getSet(id) {
     this.fcService.getSet(id).then((res) => {
-      this.set = res;
-      console.log(this.set);
+      Object.assign(this.set, res);
+      this.getForeignLanguage();
+      this.getBaseLanguage();
+      this.setLength = this.set.flashcards.length;
+      this.infoName = this.set.name;
     }, (err) => {
       console.log(err);
     });
@@ -154,6 +156,5 @@ export class EditSetComponent implements OnInit {
     }
 
   }
-
 
 }
