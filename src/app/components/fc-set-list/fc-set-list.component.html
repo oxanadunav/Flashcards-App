@@ -59,8 +59,8 @@
         <tr align="center" *ngFor="let set of sets">
           <td a [routerLink]="['/sets/' + set._id]" id="setName"> {{ set.name }}</td>
           <td>{{ set.nrOfCards }}</td>
-          <td>{{ set.fromLanguage }}</td>
           <td>{{ set.toLanguage }}</td>
+          <td>{{ set.fromLanguage }}</td>
           <td>{{ set.createdOn  | date:"dd/MM/yyyy"}} </td>
           <td>
             <button type="button" class="btn btn-primary btn-sm">Share</button>

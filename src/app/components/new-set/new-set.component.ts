@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {FlashcardService} from '../../services/flashcard.service';
-import {GoogleTranslateService} from '../../services/google-translate.service';
+import {CloudTranslationService} from '../../services/cloudtranslationservice';
 import { Set } from '../../set';
 import {SupportedLanguages} from '../../supported-languages';
 
@@ -23,7 +23,7 @@ export class NewSetComponent implements OnInit {
   wordList = [];
   wordListTextArea = "";
 
-  constructor(private fcService: FlashcardService, private gtranslateService: GoogleTranslateService, private router: Router) {
+  constructor(private fcService: FlashcardService, private gtranslateService: CloudTranslationService, private router: Router) {
   }
 
   ngOnInit() {

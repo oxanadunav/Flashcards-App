@@ -1,3 +1,16 @@
-<p>
-  view-statistics works!
-</p>
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <div style="display: block;">
+      <canvas baseChart width="500" height="300"
+              [datasets]="lineChartData"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="lineChartLegend"
+              [chartType]="lineChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)">
+      </canvas>
+    </div>
+  </div>
+</div>

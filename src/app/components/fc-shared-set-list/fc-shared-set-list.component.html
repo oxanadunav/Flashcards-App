@@ -5,35 +5,38 @@
 
     <ul class="list-group col-lg-3">
       <li class="list-group-item d-flex justify-content-between align-items-center">
-        Shared Sets
-          <button type="button" class="btn btn-primary disabled">New set</button>
+        Shared sets
+        <a [routerLink]="['/newset']">
+          <button type="button" class="btn btn-secondary">New set</button>
+        </a>
       </li>
+
       <li class="list-group-item d-flex justify-content-between align-items-center">
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search a set...">
+        <form class="form-inline my-2 my-lg-0" >
+          <input class="form-control" type="text" placeholder="Search a set..." name="search" [(ngModel)]="searchName">
+          <button type="button" class="btn btn-secondary" (click)="searchByName()"><i class="fa fa-search"></i></button>
         </form>
       </li>
 
       <li class="list-group-item d-flex justify-content-between align-items-center">
         <h6>Filter </h6>
         <div class="form-group">
-          <select class="custom-select">
-            <option selected=""> From</option>
-            <option value="1">eng</option>
-            <option value="2">ro</option>
-            <option value="3">es</option>
+          <select class="custom-select" [(ngModel)]="from" name="fromLanguage" (ngModelChange)="fromFilterSelected()" >
+            <option [ngValue]="undefined" selected> From</option>
+            <option *ngFor="let lang of languages" [value]="lang.name"> {{lang.name}}  </option>
           </select>
         </div>
 
         <div class="form-group">
-          <select class="custom-select">
-            <option selected=""> To</option>
-            <option value="1">eng</option>
-            <option value="2">ro</option>
-            <option value="3">es</option>
+          <select class="custom-select" [(ngModel)]="to" name="fromLanguage" (ngModelChange)="toFilterSelected()">
+            <option [ngValue]="undefined" selected> To</option>
+            <option *ngFor="let lang of languages" [value]="lang.name"> {{lang.name}}  </option>
           </select>
         </div>
+
+        <button class="btn btn-link" id="clearFilter" data-toggle="tooltip" data-placement="right" title="Clear filter" data-original-title="Tooltip on right" (click)="clearFilter()"><i class="fa fa-times"></i></button>
       </li>
+
       <li class="list-group-item d-flex justify-content-between align-items-center">
         <a [routerLink]="['/sets']">View My Sets</a>
       </li>

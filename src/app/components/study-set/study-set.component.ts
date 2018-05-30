@@ -16,9 +16,9 @@ export class StudySetComponent implements OnInit {
   index;
   flashcard: String;
 
-  modeNotChosen = false;
+  modeNotChosen = true;
   memorizeMode = false;
-  testMode = true;
+  testMode = false;
 
   // For memorize mode
   shuffled = false;

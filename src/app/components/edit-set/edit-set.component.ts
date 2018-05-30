@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FlashcardService} from '../../services/flashcard.service';
 import {SupportedLanguages} from '../../supported-languages';
-import {GoogleTranslateService} from '../../services/google-translate.service';
+import {CloudTranslationService} from '../../services/cloudtranslationservice';
 import {Set} from '../../set';
 import {Flashcard} from '../../flashcard';
 
@@ -46,7 +46,7 @@ export class EditSetComponent implements OnInit {
   wordListTextArea = "";
   infoName: string;
 
-  constructor(private route: ActivatedRoute, private fcService: FlashcardService, private gtranslateService: GoogleTranslateService, private router: Router) {
+  constructor(private route: ActivatedRoute, private fcService: FlashcardService, private gtranslateService: CloudTranslationService, private router: Router) {
   }
 
   ngOnInit () {

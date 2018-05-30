@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class GoogleTranslateService {
+export class CloudTranslationService {
 
   translateURL = 'https://translation.googleapis.com/language/translate/v2?key=AIzaSyDqIt6ShY8Zd9qyD9NFQ4UpGTXQy5bhq8c';
 
@@ -36,7 +36,5 @@ export class GoogleTranslateService {
         });
     });
   }
-
-
 }
 

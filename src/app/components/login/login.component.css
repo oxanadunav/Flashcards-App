@@ -1,0 +1,30 @@
+.fieldset {
+  margin: 0 auto;
+  width:28%; /* value of your choice which suits your alignment */
+  padding: 20px 15px;
+  border: 1px solid #95a5a6;
+  border-radius: 5px;
+}
+
+.fieldset > .btn-link {
+  color: #446a7a;
+}
+
+
+.fieldset > .btn-link:hover {
+  color: #85a6a2;
+}
+
+.newrow {
+  margin-top:10px
+}
+
+.nav > .btn-link {
+  color: #fff;
+}
+
+.nav > .btn-link:hover {
+  text-decoration: none;
+  color: #18BC9C;
+
+}

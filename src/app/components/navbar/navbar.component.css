@@ -1,0 +1,9 @@
+#drop, #sign{
+  cursor: pointer;
+}
+
+#drop:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #2C3E50;
+}

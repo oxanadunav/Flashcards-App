@@ -1,0 +1,33 @@
+#setName:hover{
+  color: #0f7864;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.form-inline .form-control {
+  display: inline-block;
+  width: 187px;
+  vertical-align: middle;
+  border-radius: 0.25rem 0rem 0rem 0.25rem;
+}
+
+
+.form-inline .btn {
+  border-radius: 0rem 0.25rem 0.25rem 0rem;
+}
+
+div .form-group, div h6 {
+  margin-bottom: 0px;
+}
+
+.form-group {
+  width: 77px;
+}
+
+#clearFilter {
+  padding-right: 0px;
+  padding-left: 5px;
+  color: #95a5a6;
+}
+
+

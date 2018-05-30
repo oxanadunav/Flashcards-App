@@ -1,27 +1,64 @@
 <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
   <div class="container">
-    <a href="/" class="navbar-brand">Learn with flashcards</a>
+    <a [routerLink]="['/sets']" class="navbar-brand">Learn with flashcards</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" [routerLink]="['/sets']">Home</a>
         </li>
       </ul>
 
-      <ul class="nav navbar-nav ml-auto">
+      <ul class="nav navbar-nav ml-auto" *ngIf="loggedIn; else logIn">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="profile">user <span class="caret"></span></a>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="profile"><i class="fa fa-user fa-lg"></i> <span class="caret"></span></a>
           <div class="dropdown-menu" aria-labelledby="profile">
-            <a class="dropdown-item"> oxana</a>
-            <a class="dropdown-item"> View Profile </a>
+            <a class="dropdown-item disabled"> Signed in as</a>
+            <a class="dropdown-item disabled"><b>oxanadunav</b></a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item"> Sign out</a>
+            <a class="dropdown-item" id="drop"> View Profile </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" id="drop" data-toggle="modal" data-target="#signoutmodal"> Sign out</a>
           </div>
         </li>
       </ul>
+
+      <ng-template #logIn>
+        <ul class="nav navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" id="sign">Sign in</a>
+          </li>
+          <span style="color:lightgrey;padding:8px">or</span>
+          <li class="nav-item">
+            <a class="nav-link" id="sign">Sign up</a>
+          </li>
+        </ul>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<!--sign out-->
+<div class="modal" id="signoutmodal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to sign out?</p>
+      </div>
+      <div class="modal-footer">
+        <a [routerLink]="['/login']">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Sign out</button>
+        </a>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+      </div>
     </div>
   </div>
 </div>

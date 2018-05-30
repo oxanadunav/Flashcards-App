@@ -7,7 +7,9 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { FlashcardService} from './services/flashcard.service';
-import {GoogleTranslateService} from './services/google-translate.service';
+import { CloudTranslationService } from './services/cloudtranslationservice';
+
+import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -22,12 +24,14 @@ import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
 const ROUTES = [
-  { path: '', redirectTo: 'sets', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent},
   { path: 'sets', component: FcSetListComponent },
   { path: 'sets/:id', component: FcSetComponent },
   { path: 'newset', component: NewSetComponent},
   { path: 'sharedsets', component: FcSharedSetListComponent},
   { path: 'sets/:id/editset', component:  EditSetComponent},
+  { path: 'profile', component: ProfileComponent}
 ];
 
 @NgModule({
@@ -49,11 +53,12 @@ const ROUTES = [
     HttpModule,
     HttpClientModule,
     FormsModule,
+    ChartsModule,
     RouterModule.forRoot(ROUTES)
   ],
   providers: [
     FlashcardService,
-    GoogleTranslateService,
+    CloudTranslationService,
     {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
