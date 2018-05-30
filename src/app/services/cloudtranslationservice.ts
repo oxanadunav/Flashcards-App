@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class CloudTranslationService {
 
-  translateURL = 'https://translation.googleapis.com/language/translate/v2?key=AIzaSyDqIt6ShY8Zd9qyD9NFQ4UpGTXQy5bhq8c';
+  translateURL = '...';
 
   constructor(private http: HttpClient) { }
 
